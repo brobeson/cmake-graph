@@ -20,6 +20,8 @@ class TargetTest(unittest.TestCase):
         with self.assertRaises(ValueError):
             p = Target("foo", None)
         with self.assertRaises(ValueError):
+            p = Target("foo", "")
+        with self.assertRaises(ValueError):
             p = Target("foo", "not a target type")
 
     def test_name_property(self):
