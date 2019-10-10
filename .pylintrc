@@ -1,0 +1,29 @@
+[MASTER]
+jobs=0
+
+[MESSAGES CONTROL]
+enable=c-extension-no-member
+disable=bad-continuation, too-few-public-methods
+
+[REPORTS]
+msg-template='{path}:{line}: [{msg_id} {symbol}] {obj} {msg}'
+output-format=colorized
+score=no
+
+[BASIC]
+variable-rgx=[a-zA-Z_][a-zA-Z_0-9]*
+
+[MISCELLANEOUS]
+notes=FIXME,
+      XXX,
+      TODO,
+      BUG,
+      HACK
+
+[LOGGING]
+logging-format-style=new
+
+[EXCEPTIONS]
+overgeneral-exceptions=Exception
+
+# vim: ft=config
