@@ -1,0 +1,4 @@
+black
+lizard
+pylint
+sphinx

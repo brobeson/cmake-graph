@@ -1,0 +1,20 @@
+language: python
+python:
+  - "3.4"
+  - "3.5"
+  - "3.6"
+  - "3.7"
+
+install:
+  - if [[ "${TRAVIS_PYTHON_VERSION}" == "3.7" ]]; then
+    pip install --quiet --requirement ci-requirements.txt; fi
+  - pip install --quiet sphinx
+
+before_script:
+  - shopt -s globstar
+
+script:
+  - if [[ "${TRAVIS_PYTHON_VERSION}" == "3.7" ]]; then black --check .; fi
+  - if [[ "${TRAVIS_PYTHON_VERSION}" == "3.7" ]]; then pylint **/*.py; fi
+  - if [[ "${TRAVIS_PYTHON_VERSION}" == "3.7" ]]; then
+    lizard --CCN 10 --arguments 5 --length 100 --warnings_only; fi
