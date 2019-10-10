@@ -4,6 +4,7 @@ import unittest
 
 from cmake_graph.project import Project
 
+
 class ProjectTest(unittest.TestCase):
     """The Project class unit test."""
 

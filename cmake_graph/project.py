@@ -1,5 +1,6 @@
 """Provides the Project class."""
 
+
 class Project:
     """Encapsulates a project and its dependencies."""
 
