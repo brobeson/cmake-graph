@@ -32,6 +32,16 @@ def parse_command_line():
 
 
 def get_cmake_files(project):
+    """Get a list of all the CMake files in a project.
+
+    :param str project: The root directory of the project.
+    :returns: All the CMake files found in the project.
+    :rtype: list
+
+    This function will find all the CMake files in a project, including in
+    subdirectories. It looks for all files named *CMakeLists.txt*, and all files
+    with the *cmake* file extension.
+    """
     os.chdir(project)
     files = glob.glob("**/CMakeLists.txt", recursive=True)
     files.extend(glob.glob("**/*.cmake", recursive=True))
