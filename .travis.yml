@@ -16,7 +16,7 @@ script:
   - if [[ "${TRAVIS_PYTHON_VERSION}" == "3.7" ]]; then pylint **/*.py; fi
   - if [[ "${TRAVIS_PYTHON_VERSION}" == "3.7" ]]; then
     lizard --CCN 10 --arguments 5 --length 100 --warnings_only; fi
-  - coverage -m unittest discover
+  - coverage run -m unittest discover
 
 after_success:
   coveralls
