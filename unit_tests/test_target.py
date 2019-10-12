@@ -33,7 +33,3 @@ class TargetTest(unittest.TestCase):
         """Ensure that Target.target_type provides the correct value."""
         p = Target("King Lear", LIBRARY_TARGET)
         self.assertEqual(p.target_type, LIBRARY_TARGET)
-
-
-if __name__ == "__main__":
-    unittest.main()

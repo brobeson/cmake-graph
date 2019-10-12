@@ -12,7 +12,3 @@ class CMakeGraphTest(unittest.TestCase):
         """Test the function get_cmake_files()."""
         files = cmake_graph.cmake_graph.get_cmake_files("test_project")
         self.assertEqual(sorted(files), ["CMakeLists.txt", "a_script.cmake"])
-
-
-if __name__ == "__main__":
-    unittest.main()
