@@ -13,7 +13,10 @@ before_script:
 
 script:
   - if [[ "${TRAVIS_PYTHON_VERSION}" == "3.7" ]]; then black --check .; fi
-  - if [[ "${TRAVIS_PYTHON_VERSION}" == "3.7" ]]; then pylint **/*.py; fi
+  - if [[ "${TRAVIS_PYTHON_VERSION}" == "3.7" ]]; then
+    pylint cmake_graph/**/*.py;
+    pylint unit_tests/**/*.py;
+    fi
   - if [[ "${TRAVIS_PYTHON_VERSION}" == "3.7" ]]; then
     lizard --CCN 10 --arguments 5 --length 100 --warnings_only; fi
   - if [[ "${TRAVIS_PYTHON_VERSION}" == "3.7" ]]; then
