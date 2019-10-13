@@ -58,3 +58,14 @@ class Target:
         :rtype: str
         """
         return self.__target_type
+
+
+def build_target_list(cmake_files: list) -> list:
+    """Build a list of targets in the CMake project.
+
+    :param list cmake_files: The list of CMake files to scan. Each entry should
+        be a str.
+    :returns: A list of Target objects.
+    :rtype: list
+    """
+    return []

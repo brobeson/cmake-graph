@@ -1,8 +1,9 @@
-"""A unit test for the cmake-graph.target.Target class."""
+"""A unit test for the cmake_graph.target.Target class."""
 
+import os.path
 import unittest
 
-from cmake_graph.target import Target, LIBRARY_TARGET
+import cmake_graph.target as target
 
 
 class TargetTest(unittest.TestCase):
@@ -14,22 +15,49 @@ class TargetTest(unittest.TestCase):
         """
         # pylint: disable=unused-variable
         with self.assertRaises(ValueError):
-            p = Target(None, LIBRARY_TARGET)
+            p = target.Target(None, target.LIBRARY_TARGET)
         with self.assertRaises(ValueError):
-            p = Target("", LIBRARY_TARGET)
+            p = target.Target("", target.LIBRARY_TARGET)
         with self.assertRaises(ValueError):
-            p = Target("foo", None)
+            p = target.Target("foo", None)
         with self.assertRaises(ValueError):
-            p = Target("foo", "")
+            p = target.Target("foo", "")
         with self.assertRaises(ValueError):
-            p = Target("foo", "not a target type")
+            p = target.Target("foo", "not a target type")
 
     def test_name_property(self):
         """Ensure that Target.name provides the correct value."""
-        p = Target("King Lear", LIBRARY_TARGET)
+        p = target.Target("King Lear", target.LIBRARY_TARGET)
         self.assertEqual(p.name, "King Lear")
 
     def test_target_type_property(self):
         """Ensure that Target.target_type provides the correct value."""
-        p = Target("King Lear", LIBRARY_TARGET)
-        self.assertEqual(p.target_type, LIBRARY_TARGET)
+        p = target.Target("King Lear", target.LIBRARY_TARGET)
+        self.assertEqual(p.target_type, target.LIBRARY_TARGET)
+
+
+class BuildTargetListTest(unittest.TestCase):
+    """The unit tests for cmake_graph.target.build_target_list()."""
+
+    def test_invalid_input(self):
+        """Ensure that invalid input parameters are properly handled."""
+        with self.assertRaises(ValueError):
+            target.build_target_list(None)
+        with self.assertRaises(ValueError):
+            target.build_target_list("CMakeLists.txt")
+        with self.assertRaises(ValueError):
+            target.build_target_list(["CMakeLists.txt", 1])
+
+    def test_valid_input(self):
+        """Test the function with valid input."""
+        pth = os.path.abspath(
+            os.path.join(os.path.dirname(__file__), "../test_project")
+        )
+        targets = target.build_target_list([os.path.join(pth, "CMakeLists.txt")])
+        self.assertEqual(
+            targets,
+            [
+                target.Target("libFoo", target.LIBRARY_TARGET),
+                target.Target("foo", target.EXECUTABLE_TARGET),
+            ],
+        )
