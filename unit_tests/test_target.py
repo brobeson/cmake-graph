@@ -39,12 +39,23 @@ class TargetTest(unittest.TestCase):
 class BuildTargetListTest(unittest.TestCase):
     """The unit tests for cmake_graph.target.build_target_list()."""
 
-    def test_invalid_input(self):
-        """Ensure that invalid input parameters are properly handled."""
+    def test_none_input(self):
+        """Ensure that None input raises."""
         with self.assertRaises(ValueError):
             target.build_target_list(None)
+
+    def test_empty_input(self):
+        """Ensure that an empty list as input raises."""
+        with self.assertRaises(ValueError):
+            target.build_target_list([])
+
+    def test_nonlist_input(self):
+        """Ensure that a non-list input raises."""
         with self.assertRaises(TypeError):
             target.build_target_list("CMakeLists.txt")
+
+    def test_nonstring_input(self):
+        """Ensure that a non-string in the input raises."""
         with self.assertRaises(TypeError):
             target.build_target_list(["CMakeLists.txt", 1])
 

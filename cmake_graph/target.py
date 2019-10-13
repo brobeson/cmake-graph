@@ -75,6 +75,8 @@ def build_target_list(cmake_files: list) -> list:
         raise ValueError("cmake_files may not be None")
     if not isinstance(cmake_files, list):
         raise TypeError("cmake_files must be a list of strings")
+    if not cmake_files:
+        raise ValueError("cmake_files cannot be an empty list")
     for f in cmake_files:
         if not isinstance(f, str):
             raise TypeError("cmake_files may only contain strings")
