@@ -67,5 +67,15 @@ def build_target_list(cmake_files: list) -> list:
         be a str.
     :returns: A list of Target objects.
     :rtype: list
+    :raises ValueError: if ``cmake_files`` is ``None``
+    :raises TypeError: if ``cmake_files`` is not a list, or if any element in
+        ``cmake_files`` is not a str
     """
+    if cmake_files is None:
+        raise ValueError("cmake_files may not be None")
+    if not isinstance(cmake_files, list):
+        raise TypeError("cmake_files must be a list of strings")
+    for f in cmake_files:
+        if not isinstance(f, str):
+            raise TypeError("cmake_files may only contain strings")
     return []

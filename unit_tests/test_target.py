@@ -43,9 +43,9 @@ class BuildTargetListTest(unittest.TestCase):
         """Ensure that invalid input parameters are properly handled."""
         with self.assertRaises(ValueError):
             target.build_target_list(None)
-        with self.assertRaises(ValueError):
+        with self.assertRaises(TypeError):
             target.build_target_list("CMakeLists.txt")
-        with self.assertRaises(ValueError):
+        with self.assertRaises(TypeError):
             target.build_target_list(["CMakeLists.txt", 1])
 
     def test_valid_input(self):
