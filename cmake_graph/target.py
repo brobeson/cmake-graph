@@ -77,7 +77,31 @@ def build_target_list(cmake_files: list) -> list:
         raise TypeError("cmake_files must be a list of strings")
     if not cmake_files:
         raise ValueError("cmake_files cannot be an empty list")
+    targets = []
     for f in cmake_files:
         if not isinstance(f, str):
             raise TypeError("cmake_files may only contain strings")
+        targets.extend(extract_targets_from_file(f))
     return []
+
+
+def extract_targets_from_file(file_path: str) -> list:
+    """Extract all the targets from a given CMake file.
+
+    :param file_path str: The path to the CMake file.
+    :returns: A list of Target objects read from the file. If there are no
+        targets in the file, the returned list will be empty.
+    :rtype: list
+    :raises ValueError: if ``file_path`` is None or an empty string
+    :raises: Any exceptions raised while opening and reading a text file are
+        allowed to propagate.
+    """
+    if file_path is None:
+        raise ValueError("file_path cannot be None")
+    if not isinstance(file_path, str):
+        raise TypeError("file_path must be a string")
+    if not file_path:
+        raise ValueError("file_path cannot be an empty string")
+    with open(file_path) as fd:
+        lines = fd.readlines()
+    return None

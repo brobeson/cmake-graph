@@ -72,3 +72,38 @@ class BuildTargetListTest(unittest.TestCase):
                 target.Target("foo", target.EXECUTABLE_TARGET),
             ],
         )
+
+
+class ExtractTargetsFromFileTest(unittest.TestCase):
+    """The unit tests for cmake_graph.target.extract_targets_from_file()."""
+
+    def test_none_input(self):
+        """Ensure that None input raises."""
+        with self.assertRaises(ValueError):
+            target.extract_targets_from_file(None)
+
+    def test_empty_string_input(self):
+        """Ensure that empty string input raises."""
+        with self.assertRaises(ValueError):
+            target.extract_targets_from_file("")
+
+    def test_nonstring_input(self):
+        """Ensure that a non-string in the input raises."""
+        with self.assertRaises(TypeError):
+            target.extract_targets_from_file(1)
+
+    def test_file_with_no_targets(self):
+        """Ensure that valid input produces valid results."""
+        targets = target.extract_targets_from_file("test_project/a_script.cmake")
+        self.assertIsNone(targets)
+
+    def test_file_with_targets(self):
+        """Ensure that valid input produces valid results."""
+        targets = target.extract_targets_from_file("test_project/CMakeLists.txt")
+        self.assertIsEqual(
+            targets,
+            [
+                target.Target(libFoo, target.LIBRARY_TARGET),
+                target.Target(foo, target.EXECUTABLE_TARGET),
+            ],
+        )
